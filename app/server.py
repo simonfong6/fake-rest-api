@@ -4,9 +4,11 @@ Backend server.
 """
 import logging
 
+import requests
 from flask import Flask
 from flask import jsonify
 from flask import render_template
+from flask import request
 from flask_cors import CORS
 
 # Configure logging.
@@ -31,6 +33,22 @@ def data():
         'derek': 'B',
         'isaac': 'A'
     })
+
+@app.route('/url')
+def fetch():
+    if 'url' not in request.args:
+        return "Incorrect: Please make a request of the form: /url?url=https://google.com"
+    
+    url = request.args['url']
+
+    response = requests.get(url)
+
+    try:
+        data = response.json()
+    except ValueError:
+        return "No JSON data available for {url}".format(url=url)
+
+    return jsonify(data)
 
 
 def main(args):
