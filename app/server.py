@@ -5,7 +5,9 @@ Backend server.
 import logging
 
 from flask import Flask
+from flask import jsonify
 from flask import render_template
+from flask_cors import CORS
 
 # Configure logging.
 logging.basicConfig(filename='logs/server.log')
@@ -14,10 +16,21 @@ logger.setLevel(logging.INFO)
 
 app = Flask(__name__)
 
+CORS(app)
+
 
 @app.route('/')
 def index():
     return render_template('index.html.jinja')
+
+@app.route('/data')
+def data():
+    return jsonify({
+        'eric': 'A+',
+        'simon': 'C-',
+        'derek': 'B',
+        'isaac': 'A'
+    })
 
 
 def main(args):
@@ -39,7 +52,7 @@ if __name__ == '__main__':
     parser.add_argument('-p', '--port',
                         help="Port that the server will run on.",
                         type=int,
-                        default=8000)
+                        default=4321)
     parser.add_argument('-d', '--debug',
                         help="Whether or not to run in debug mode.",
                         default=False,
