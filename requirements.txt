@@ -1,0 +1,11 @@
+# Flask Web Framework.
+flask >= 1.1.1
+
+# MongoDB SDK
+# pymongo >= 3.10.1
+
+# AWS SDK
+# boto3 >= 1.12.0
+
+# Socket IO
+# flask-socketio >= 4.2.1
